@@ -1,0 +1,72 @@
+<!Doctype html>
+<html>
+
+    <script type="text/javascript" src="createjs.min.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="application/javascript" src="code.js"></script>
+
+    <style>
+        body{margin:0px; padding: 0px;}
+        #stage1, #stage2, #stage3{float:left}
+        #stage1{border:5px solid #f00;}
+        #stage2{border:5px solid #0f0;}
+        #stage3{border:5px solid #00f;}
+        .c1,.c2,.c3{width:410px; height:430px; float: left; border: 1px solid #000;}
+    </style>
+    
+<body onload="init()">
+    <div class="c1">
+        <canvas width="400" height="350" id="stage1"></canvas>
+        <button type="button" class="saveimage">Save Image</button>
+        <!-- <a href="#" class="dowloadimg" download="image.jpg">Download img</a> -->
+    </div>
+    
+<!--     <div class="c2">
+        <canvas width="400" height="350" id="stage2"></canvas>
+    </div>
+    
+    <div class="c2">
+        <canvas width="400" height="350" id="stage3"></canvas>
+    </div> -->
+
+    <?php 
+
+        if(isset($_GET['v'])){
+        
+            $pageno = $_GET['v'];
+            echo "output ".$pageno;
+
+        }
+
+    ?>
+    
+    <script>
+        var imgdata;
+
+        function init(){
+            var id=1
+            
+            var a = new objA();
+/*            var b = new objB();
+                b.showImage(a.getimg());*/
+
+                //here I am getting array of images
+                imgdata=a.getimg();
+        }
+
+
+        $(document).ready(function(){
+
+            $(".dowloadimg").attr("href",imgdata)
+
+            //$(".saveimage").click(function(){
+            $(".saveimage").click(function(){
+
+                console.log(imgdata)
+                //here  I need to save multiple images into a folder 
+                $.post( "saveimg.php", { imgd: imgdata } );
+            })
+        })
+    </script>
+</body>
+</html>
